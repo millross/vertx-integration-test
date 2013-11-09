@@ -23,6 +23,8 @@
       <surefire.plugin.version>2.12.4</surefire.plugin.version>
       <failsafe.plugin.version>2.13</failsafe.plugin.version>
       <jetty.plugin.version>9.0.3.v20130506</jetty.plugin.version>
+      <vert.x.version>2.1M1</vert.x.version>
+      <vert.x.testtools.version>2.0.2-final</vert.x.testtools.version>
   </properties>
 
   <dependencies>
@@ -86,6 +88,27 @@
           <groupId>org.codehaus.groovy.modules.http-builder</groupId>
           <artifactId>http-builder</artifactId>
           <version>${http-builder.version}</version>
+          <scope>test</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>io.vertx</groupId>
+          <artifactId>vertx-core</artifactId>
+          <version>${vert.x.version}</version>
+          <scope>test</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>io.vertx</groupId>
+          <artifactId>vertx-platform</artifactId>
+          <version>${vert.x.version}</version>
+          <scope>test</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>io.vertx</groupId>
+          <artifactId>testtools</artifactId>
+          <version>${vert.x.testtools.version}</version>
           <scope>test</scope>
       </dependency>
 
