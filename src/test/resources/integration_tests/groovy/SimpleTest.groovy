@@ -1,5 +1,7 @@
 package integration_tests.groovy
 
+import groovyx.net.http.HTTPBuilder
+
 /**
  * Created with IntelliJ IDEA.
  * User: jez
@@ -9,19 +11,48 @@ package integration_tests.groovy
  */
 import org.vertx.groovy.testtools.VertxTests
 
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
+
 import static org.vertx.testtools.VertxAssert.*
 
 // And import static the VertxTests script
 // The test methods must begin with "test"
 def testBasic() {
-    println("Groovy integration test executing")
+
+    CountDownLatch latch = new CountDownLatch(2)
+    println "Starting up stub servers"
+    [
+        [
+            port: 8081,
+            handler: { request ->
+                request.response.putHeader("Content-Type", "text/plain")
+                request.response.end("Bonjour")
+            }
+        ],
+        [
+            port: 8082,
+            handler: { request ->
+                request.response.putHeader("Content-Type", "text/plain")
+                request.response.end("groovy")
+            }
+        ]
+    ].each {
+        def server = vertx.createHttpServer()
+        server.requestHandler(it.handler)
+        server.listen(it.port, "localhost") {asyncResult ->
+            latch.countDown()
+        }
+    }
+    latch.await(400, TimeUnit.MILLISECONDS)
+
     def client = vertx.createHttpClient(port: 8080);
 
     client.getNow('/') { resp ->
 
         assertEquals(200, resp.statusCode)
         resp.bodyHandler { body ->
-            assertEquals("Hello, World", body.toString())
+            assertEquals("Bonjour, groovy", body.toString())
             testComplete()
         }
     }

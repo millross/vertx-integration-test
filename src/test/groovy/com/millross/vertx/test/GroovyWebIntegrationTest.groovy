@@ -1,5 +1,6 @@
 package com.millross.vertx.test
 
+import org.junit.Ignore
 import org.junit.Test
 import groovyx.net.http.HTTPBuilder
 
@@ -12,10 +13,11 @@ import static org.hamcrest.CoreMatchers.is
 class GroovyWebIntegrationTest {
 
     @Test
+    @Ignore
     void testHttpCall() {
-        def http = new HTTPBuilder("http://localhost:8080")
+        def http = new HTTPBuilder("http://localhost:8081")
         def html = http.get( path : '/')
-        assertThat(html, is("Hello, World"))
+        assertThat(html, is("Bonjour"))
     }
 
 }
