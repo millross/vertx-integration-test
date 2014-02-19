@@ -15,7 +15,7 @@ class GroovyWebIntegrationTest {
     @Test
     @Ignore
     void testHttpCall() {
-        def http = new HTTPBuilder("http://localhost:8081")
+        def http = new HTTPBuilder("http://localhost:8181")
         def html = http.get( path : '/')
         assertThat(html, is("Bonjour"))
     }
