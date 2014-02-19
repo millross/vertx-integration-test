@@ -1,7 +1,4 @@
 package integration_tests.groovy
-
-import groovyx.net.http.HTTPBuilder
-
 /**
  * Created with IntelliJ IDEA.
  * User: jez
@@ -14,7 +11,8 @@ import org.vertx.groovy.testtools.VertxTests
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
-import static org.vertx.testtools.VertxAssert.*
+import static org.vertx.testtools.VertxAssert.assertEquals
+import static org.vertx.testtools.VertxAssert.testComplete
 
 // And import static the VertxTests script
 // The test methods must begin with "test"
@@ -24,14 +22,14 @@ def testBasic() {
     println "Starting up stub servers"
     [
         [
-            port: 8081,
+            port: 8181,
             handler: { request ->
                 request.response.putHeader("Content-Type", "text/plain")
                 request.response.end("Bonjour")
             }
         ],
         [
-            port: 8082,
+            port: 8182,
             handler: { request ->
                 request.response.putHeader("Content-Type", "text/plain")
                 request.response.end("groovy")
@@ -46,7 +44,7 @@ def testBasic() {
     }
     latch.await(400, TimeUnit.MILLISECONDS)
 
-    def client = vertx.createHttpClient(port: 8080);
+    def client = vertx.createHttpClient(port: 8180);
 
     client.getNow('/') { resp ->
 

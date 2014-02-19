@@ -25,8 +25,9 @@ public class MainResource {
     @Produces("text/html")
     public String getHomePage() {
         // Trivial sequential request for greeting and greetee
-        String greeting = restTemplate.getForObject("http://localhost:8081", String.class);
-        String greetee = restTemplate.getForObject("http://localhost:8082", String.class);
+        String greeting = restTemplate.getForObject("http://localhost:8181", String.class);
+        String greetee = restTemplate.getForObject("http://localhost:8182", String.class);
+        System.out.println("greetee" + greetee);
 
         return String.format("%s, %s", greeting, greetee);
     }

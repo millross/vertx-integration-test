@@ -210,7 +210,7 @@
                   <systemProperties>
                       <systemProperty>
                           <name>jetty.port</name>
-                          <value>8080</value>
+                          <value>8180</value>
                       </systemProperty>
                       <systemProperty>
                           <name>spring.profiles.active</name>
