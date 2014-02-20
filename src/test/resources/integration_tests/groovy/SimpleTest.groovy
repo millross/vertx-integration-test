@@ -22,14 +22,14 @@ def testBasic() {
     println "Starting up stub servers"
     [
         [
-            port: 8181,
+            port: 8081,
             handler: { request ->
                 request.response.putHeader("Content-Type", "text/plain")
                 request.response.end("Bonjour")
             }
         ],
         [
-            port: 8182,
+            port: 8082,
             handler: { request ->
                 request.response.putHeader("Content-Type", "text/plain")
                 request.response.end("groovy")
@@ -44,7 +44,7 @@ def testBasic() {
     }
     latch.await(400, TimeUnit.MILLISECONDS)
 
-    def client = vertx.createHttpClient(port: 8180);
+    def client = vertx.createHttpClient(port: 8080);
 
     client.getNow('/') { resp ->
 
